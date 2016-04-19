@@ -21,6 +21,7 @@ function buildCodeArea() {
 			editors[j].innerHtml = project[i][j];;
 			editors[j].setAttribute("fileType", i);
 			var button = document.createElement('button');
+			button.innerHTML = j.toString().split(projectName+"/")[1];
 			button.id = j;
 			button.className = "editorButtons";
 			button.addEventListener("click",function(event) {
@@ -70,7 +71,7 @@ function saveFile(fileName) {
 	httpRequest.onreadystatechange = getResponseCode;
 	urlParametes = "code="+code.value;
 	if(document.cookie.search("path") >= 0){
-	    httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?"+urlParametes, true);
+	    httpRequest.open("get", "http://code-editor.azurewebsites.net/wtproject-master/codeEditor?"+urlParametes, true);
 	    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	    httpRequest.send();
 	}	
@@ -109,7 +110,7 @@ go.addEventListener("click", function checkValidityOfPath(event) {
 	httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = getResponseCode;
 	projectName = server_location.value;
-    httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?project="+server_location.value, true);
+    httpRequest.open("get", "http://code-editor.azurewebsites.net/wtproject-master/codeEditor?project="+server_location.value, true);
     console.log(server_location.value);
     httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpRequest.send();		

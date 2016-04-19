@@ -26,6 +26,13 @@ iframe {
 	clear: both;
 }
 
+.editorButtons {
+	padding: 5px;
+	margin: 5px;
+	text-align: center;
+	color: green;
+}
+
 
     
 /* Paste this css to your style sheet file or under head tag */
