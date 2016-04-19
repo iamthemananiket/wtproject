@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crossword</title>
+	<style type="text/css">
+		h1 {
+			display: inline;
+		}
+		input[type=number] {
+		    height: 30px;
+		    line-height: 30px;
+		    font-size: 16px;
+		    padding: 0 8px;
+		    width: 40px;
+		}
+		.superscript{
+			margin-left: 40px;
+			margin-bottom: 30px; 
+			padding: 0px;
+		}
+		.character{
+			font-size: 15px; 
+			padding: 0px;
+			margin: 0px;
+		}
+		input[type=number]::-webkit-inner-spin-button { 
+		    -webkit-appearance: none;
+		    cursor: pointer;
+		    display: block;
+		    width: 8px;
+		    color: #333;
+		    text-align:center;
+		    position:relative;
+		}    
+		input[type=number]:hover::-webkit-inner-spin-button { 
+		    background: #eee url('http://i.stack.imgur.com/YYySO.png') no-repeat 50% 50%;  
+		    width: 14px;
+		    height: 14px;
+		    padding: 4px;
+		    position: relative;
+		    top: 4px;
+		    //right: 4px;
+		    border-radius: 28px;
+		}
+		#crossword_table td {
+			width: 50px;
+			height: 60px;
+			background: black;
+			cursor: pointer;
+		}
+		#reduce, #increase {
+			padding-left: 50px;
+			padding-right: 50px;
+		}
+		#minus, #plus {
+			width: 30px;
+			height: 30px;
+			margin-top: 10px;
+			cursor: pointer;
+		}
+		button {
+			border-radius: 5px;
+		    border: 0;
+		    width: 80px;
+		    height: 25px;
+		    font-family: Tahoma;
+		    background: #f4f4f4;
+		    cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<h1 id = "crossword_table_info">5 x 5 CROSSWORD</h1>
+		<table id="crossword_table" border="1"></table>
+		<script type="text/javascript">
+
+		</script>
+	</center>
+</body>
+	<script type="text/javascript" src = "js/crossword.js"></script>
+	<script type="text/javascript" src = "js/design.js"></script>
+</html>
