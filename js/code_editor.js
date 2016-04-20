@@ -193,7 +193,7 @@ function getResponseCode(event) {
 	if (httpRequest.readyState = XMLHttpRequest.DONE)
 		if (httpRequest.status == 200) {
 			var response = httpRequest.responseText
-			// console.log(response.slice(5, response.length-6))
+			console.log(httpRequest.responseText);
 			project = JSON.parse(response.slice(5, response.length - 6))
 			buildbuttonArea();
 
