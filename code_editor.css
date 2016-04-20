@@ -1,19 +1,14 @@
-div{
-	display: block;
-	clear: both;
-}
 
 #code {
     display: block;
-    height: 500px;
-    width: 45%;
-    float: left;
+    height: 100%;
+    width: 95%
 }
 
 iframe {
-    height: 500px;
-    width: 45%;
-    float: right;
+    height: 100%;
+    width: 95%;
+    
 }
 #server_location {
 	display: block;
@@ -26,7 +21,7 @@ iframe {
 	clear: both;
 }
 
-.editorButtons {
+.editorButtons, .newFileBox, #newFile {
 	padding: 5px;
 	margin: 5px;
 	text-align: center;

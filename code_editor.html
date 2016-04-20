@@ -4,27 +4,36 @@
 <head>
 	<title>Text Editor</title>
 	<link rel="stylesheet" type="text/css" href="code_editor.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./animate.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 </head>
 
 <body>
-	<div id = "codeArea">
-		<textarea id="code">
+	<div class="container-fixed" style="height: 500px;">
+		<div class="row" style="height: 100%">
+			<div class="col-md-5" style="height: 100%" id="codeArea">
+				<textarea id="code">
 			
-		</textarea>
-		<iframe id="output">
+				</textarea>
+			</div>
+			<div id="buttonArea" class="col-md-2" style="height: 100%"></div>
+			<div class="col-md-5" style="height: 100%">
+				<iframe id="output">
 			
-		</iframe>
+			</iframe>
+			</div>
+		</div>
 	</div>
 	<div>
-		<input type="text" name="location" id = "server_location" placeholder="Enter name of project in server"></input>
-		<button name="go" id = "go">load</button>
+		<input type="text" name="location" id="server_location" placeholder="Enter name of project in server"></input>
+		<button class="btn btn-info"name="go" id="go">load</button>
 	</div>
-	
+
 </body>
 <script type="text/javascript" src="js/code_editor.js">
-	
 
 </script>
 
