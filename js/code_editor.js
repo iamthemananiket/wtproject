@@ -32,7 +32,7 @@ function createButtonAndItsEditor(fileType, className) {
 	var button = document.createElement('button');
 	button.innerHTML = className.toString();
 	button.id = className;
-	button.className = "btn btn-info editorButtons";
+	button.className = "btn btn-info btn-sm editorButtons";
 	
 	button.addEventListener("click", function (event) {
 		code.remove();
@@ -61,7 +61,7 @@ function buildbuttonArea() {
 	fileBox.size = 15;
 	fileBox.placeholder = "Enter filetype/name";
 	button.id = "newFile";
-	button.className = "newButtons";
+	button.className = "btn btn-warning newButtons";
 	button.textContent = "+"
 	// button.addEventListener("click", function (event) {
 	// 	// body...
@@ -90,7 +90,7 @@ function buildbuttonArea() {
 				var className = $('.newFileBox').val();
 				
 				if (className.length != 0) {
-					$("<button  id=" + className + " class = 'btn btn-info editorButtons'>" + className + "</button>").insertBefore('.newFileBox');
+					$("<button  id=" + className + " class = 'btn btn-info btn-sm editorButtons'>" + className + "</button>").insertBefore('.newFileBox');
 					var tmp = /\.[a-z]+$/i;
 					
 					var fileType = tmp.exec(className)[0].split(".")[1];

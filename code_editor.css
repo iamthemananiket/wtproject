@@ -5,24 +5,37 @@ body {
 #code {
     display: block;
     height: 100%;
-    width: 100%
+    width: 100%;
+	font-family: "Lucida Console", Monaco, monospace;
+	border-radius: 5px;
+	border:3px solid lightgray;
 }
 
 iframe {
     height: 100%;
     width: 100%;
 	background-color: white;
+	border-radius: 5px;
+	border:3px solid lightgray;
     
 }
 #server_location {
 	display: block;
 	margin: auto;
-	clear: both;
+	margin-top: 10px;
+	
+	border:2px solid grey;
+	border-radius: 5px;
+	width: 15%;
+	
 }
 #go {
 	display: block;
 	margin: auto;
 	clear: both;
+	margin-top: 5px;
+	background-color: darkgray;
+	
 }
 
 .editorButtons, .newFileBox, #newFile {
