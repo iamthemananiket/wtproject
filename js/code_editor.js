@@ -1,41 +1,77 @@
 // js.initHighlightingOnLoad();
 var project = {}
 var projectName = ""
-var fileName = "/home/abhijtih/TEMP/"
+var cause = "input";
 var httpRequest;
 var editors = {}
-function updateContent() {
+function updateContent(event) {
+	project[code.getAttribute("type")][projectName+"/"+code.className] = code.value;	
+	code.innerHTML = code.value;
+	editors[code.className] = code;
 	output.contentWindow.clientHeight = output.clientHeight;
 	output.contentWindow.clientWidth = output.clientWidth;
-	output.setAttribute("srcdoc", editors[projectName+"/index.html"].value);
+	output.setAttribute("srcdoc", editors["index.html"].value);
 
 }
+function createButtonAndItsEditor(fileType,className) {
+	var editor = document.createElement('textarea');
+	editor.id = "code";
+	editor.setAttribute("type", fileType);
+	editor.className = className;
+	editor.value = project[fileType][projectName+"/"+className];
+	editor.addEventListener("input", updateContent);
+	editor.addEventListener("keydown", function (event) {
+		if (event.ctrlKey){
+			if(event.which == 'M'.charCodeAt(0))
+				saveFile()
+		}
+		
+	});			
+	editor.innerHTML = project[fileType][projectName+"/"+className];
+	editors[className] = editor;
+	var button = document.createElement('button');
+	button.innerHTML = className.toString();
+	button.id = className;
+	button.className = "editorButtons";
+	button.addEventListener("click",function(event) {
+		code.remove();
+		codeArea.insertBefore(editors[event.target.id], codeArea.firstChild);
+		output.contentWindow.clientHeight = output.clientHeight;
+		output.contentWindow.clientWidth = output.clientWidth;
+		output.setAttribute("srcdoc", editors["index.html"].value);
+	});
+	if(!document.getElementById(className))
+		codeArea.appendChild(button);	
+}
+
 function buildCodeArea() {
+	// console.log(project)
 	for(var i in project){
 		for(var j in project[i]){
-			console.log(i, j)
-			var editor = document.createElement('textarea');
-			editor.id = "code";
-			editor.value = project[i][j];
-			editors[j] = editor;
-			editors[j].innerHtml = project[i][j];;
-			editors[j].setAttribute("fileType", i);
-			var button = document.createElement('button');
-			button.innerHTML = j.toString().split(projectName+"/")[1];
-			button.id = j;
-			button.className = "editorButtons";
-			button.addEventListener("click",function(event) {
-				code.remove();
-				codeArea.insertBefore(editors[event.target.id], codeArea.firstChild);
-				updateContent();
-				// console.log(editors[event.target.id])
-			});
-			codeArea.appendChild(button);
+			j = j.replace(projectName+"/", "");
+			createButtonAndItsEditor(i, j)
 		}
 	}
-	code.remove();
-	codeArea.insertBefore(editors[projectName+"/index.html"], codeArea.firstChild);	
-	updateContent();
+	var button = document.createElement('button');
+	button.id = "newFile";
+	button.className = "newButtons";
+	button.addEventListener("click", function (event) {
+		// body...
+		console.log("Add UI to insert name and destination directory ")
+		//fileType directory name
+		//className name of the file
+		// createButtonAndItsEditor(fileType,className);
+		// project[fileType][className] = 
+		// console.log(project) 
+		});
+	if(!document.getElementById(button.id))
+		codeArea.appendChild(button);	
+	if(code)	
+		code.remove();
+	codeArea.insertBefore(editors["index.html"], codeArea.firstChild);	
+	output.contentWindow.clientHeight = output.clientHeight;
+	output.contentWindow.clientWidth = output.clientWidth;
+	output.setAttribute("srcdoc", editors["index.html"].value);
 }
 function addClassCodeEditor() {
 	var i = 0
@@ -44,9 +80,45 @@ function addClassCodeEditor() {
 		var element = stack.pop();
 		var elementChildren = element.children;
 		for (var e = 0; e < elementChildren.length; e++) {
-			elementChildren[e].className += "codeEditor";
+			elementChildren[e].className = ((elementChildren[e].className)?(elementChildren[e].className+" "):"") +"codeEditor";
 			// elementChildren[e].className += "codeEditor"+i;
 			stack.push(elementChildren[e]);
+		}
+	}
+
+}
+function replaceScriptAndCssTags() {
+	var scripts = output.contentWindow.document.getElementsByTagName('script');
+	// console.log(scripts)
+	for(var script = 0; script < scripts.length; script++){
+		if(scripts[script].src != ""){
+			s = output.contentWindow.document.createElement('script');
+			s.type = "text/javascript";
+			// console.log(editors, scripts[script].src)
+			for(var i in editors){
+				if(scripts[script].src.search(i)!= -1){
+					s.text = editors[i].innerText;
+					break;
+				}
+			}
+			scripts[script].parentNode.replaceChild(s, scripts[script])
+		}
+	}
+	var csss = output.contentWindow.document.getElementsByTagName('link');
+	for(var css = 0; css < csss.length; css++){
+		if(csss[css].href != ""){
+			s = output.contentWindow.document.createElement('style');
+			// console.log(editors)
+			for(var i in editors){
+				if(csss[css].href.search(i)!= -1){
+					s.innerHTML =  editors[i].value;
+					// console.log(s, editors[i], i)
+					break;
+				}
+			}			
+
+
+			csss[css].parentNode.replaceChild(s, csss[css])
 		}
 	}
 }
@@ -66,52 +138,58 @@ function getSourceCode(event) {
 		event.stopPropagation();
 	}
 }
-function saveFile(fileName) {
+function saveFile() {
 	httpRequest = new XMLHttpRequest();
-	httpRequest.onreadystatechange = getResponseCode;
-	urlParametes = "code="+code.value;
-	if(document.cookie.search("path") >= 0){
-	    httpRequest.open("get", "./codeEditor?"+urlParametes, true);
-	    httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	    httpRequest.send();
+	urlParametes = "code="+encodeURIComponent(JSON.stringify(project));
+
+	// urlParametes = urlParametes.replace("'", "\'")	
+	// console.log(urlParametes)
+	if(document.cookie.search(projectName) >= 0){
+	     httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?"+urlParametes, true);
+	     httpRequest.onreadystatechange = function() {
+	     	console.log(httpRequest.responseText)
+	     	// body...
+	     }
+	     httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	     httpRequest.send();
 	}	
 }
 function getResponseCode(event) {
 	if(httpRequest.readyState = XMLHttpRequest.DONE)
 		if(httpRequest.status == 200){
 			var response = httpRequest.responseText
-			console.log(response.slice(5, response.length-6))
+			// console.log(response.slice(5, response.length-6))
 			project = JSON.parse(response.slice(5, response.length-6))
 			buildCodeArea();
+
 		}
 }
 
 code.addEventListener("input", updateContent);
 code.addEventListener("keydown", function (event) {
 	if (event.ctrlKey){
-		console.log("Fine", event.which, 'm'.charCodeAt(0))
+		// console.log("Fine", event.which, 'm'.charCodeAt(0))
 		if(event.which == 'M'.charCodeAt(0))
-			saveFile(fileName)
+			saveFile()
 	}
 	
 });
 output.addEventListener("load", function (event) {
 	addClassCodeEditor();
 	var allELements = output.contentWindow.document.getElementsByClassName("codeEditor");
-	output.contentWindow.document.children[0].children[1].setAttribute("contentEditable","true");
-	console.log("what")
 	for (var e = 0; e < allELements.length; e++) {
 		allELements[e].removeEventListener("click", getSourceCode)
 		allELements[e].addEventListener("click", getSourceCode, true)
 	}
-	output.contentWindow.document.body.style.zoom = output.contentWindow.innerWidth / window.document.body.clientWidth;
+	output.contentWindow.document.body.style.zoom = output.contentWindow.innerWidth / window.document.body.clientWidth;	
+	replaceScriptAndCssTags();
 })
 go.addEventListener("click", function checkValidityOfPath(event) {
 	httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = getResponseCode;
 	projectName = server_location.value;
-    httpRequest.open("get", "./codeEditor?project="+server_location.value, true);
-    console.log(server_location.value);
+    httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?project="+server_location.value, true);
+    // console.log(server_location.value);
     httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpRequest.send();		
 })
