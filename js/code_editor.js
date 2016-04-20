@@ -180,7 +180,7 @@ function saveFile() {
 	// urlParametes = urlParametes.replace("'", "\'")	
 	// console.log(urlParametes)
 	if (document.cookie.search(projectName) >= 0) {
-		httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?" + urlParametes, true);
+		httpRequest.open("get", "./wtproject-master/codeEditor?" + urlParametes, true);
 		httpRequest.onreadystatechange = function () {
 			console.log(httpRequest.responseText)
 			// body...
@@ -223,7 +223,7 @@ go.addEventListener("click", function checkValidityOfPath(event) {
 	httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = getResponseCode;
 	projectName = server_location.value;
-    httpRequest.open("get", "http://localhost/wtproject-master/codeEditor?project=" + server_location.value, true);
+    httpRequest.open("get", "./codeEditor?project=" + server_location.value, true);
     // console.log(server_location.value);
     httpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     httpRequest.send();
