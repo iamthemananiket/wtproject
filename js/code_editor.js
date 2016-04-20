@@ -58,7 +58,8 @@ function buildbuttonArea() {
 	var fileBox = document.createElement('input');
 	//fileBox.hidden = true;
 	fileBox.className = "newFileBox";
-	fileBox.size = 4;
+	fileBox.size = 15;
+	fileBox.placeholder = "Enter filetype/name";
 	button.id = "newFile";
 	button.className = "newButtons";
 	button.textContent = "+"

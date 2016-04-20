@@ -11,6 +11,7 @@ body {
 iframe {
     height: 100%;
     width: 100%;
+	background-color: white;
     
 }
 #server_location {
