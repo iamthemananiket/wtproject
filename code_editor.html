@@ -12,15 +12,16 @@
 </head>
 
 <body>
+	<div class="se-pre-con"></div>
 	<div class="container-fixed" style="height: 500px;">
 		<div class="row" style="height: 100%">
-			<div class="col-md-5" style="height: 100%" id="codeArea">
+			<div class="col-md-5 fadeInLeft" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.0s; height: 100%" id="codeArea">
 				<textarea id="code">
 			
 				</textarea>
 			</div>
 			<div id="buttonArea" class="col-md-2" style="height: 100%"></div>
-			<div class="col-md-5" style="height: 100%">
+			<div class="col-md-5 fadeInRight" style="visibility: visible; animation-duration: 1.5s; animation-delay: 0.2s; height: 100%">
 				<iframe id="output">
 			
 			</iframe>
@@ -29,7 +30,7 @@
 	</div>
 	<div>
 		<input type="text" name="location" id="server_location" placeholder="Enter name of project in server"></input>
-		<button class="btn btn-info"name="go" id="go">load</button>
+		<button class="btn btn-submit"name="go" id="go">load</button>
 	</div>
 
 </body>

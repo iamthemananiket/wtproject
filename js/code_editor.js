@@ -32,7 +32,8 @@ function createButtonAndItsEditor(fileType, className) {
 	var button = document.createElement('button');
 	button.innerHTML = className.toString();
 	button.id = className;
-	button.className = "editorButtons";
+	button.className = "btn btn-info editorButtons";
+	
 	button.addEventListener("click", function (event) {
 		code.remove();
 		codeArea.insertBefore(editors[event.target.id], codeArea.firstChild);
@@ -88,7 +89,7 @@ function buildbuttonArea() {
 				var className = $('.newFileBox').val();
 				
 				if (className.length != 0) {
-					$("<button  id=" + className + " class = 'editorButtons'>" + className + "</button>").insertBefore('.newFileBox');
+					$("<button  id=" + className + " class = 'btn btn-info editorButtons'>" + className + "</button>").insertBefore('.newFileBox');
 					var tmp = /\.[a-z]+$/i;
 					
 					var fileType = tmp.exec(className)[0].split(".")[1];
@@ -229,4 +230,7 @@ go.addEventListener("click", function checkValidityOfPath(event) {
     httpRequest.send();
 })
 
-
+$(window).load(function() {
+		// Animate loader off screen
+		$(".se-pre-con").fadeOut("slow");;
+	});

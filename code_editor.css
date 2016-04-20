@@ -1,13 +1,16 @@
+body {
+    overflow-x: hidden;
+}
 
 #code {
     display: block;
     height: 100%;
-    width: 95%
+    width: 100%
 }
 
 iframe {
     height: 100%;
-    width: 95%;
+    width: 100%;
     
 }
 #server_location {
