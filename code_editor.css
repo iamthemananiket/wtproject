@@ -2,6 +2,11 @@ body {
     overflow-x: hidden;
 }
 
+.jumbotron {
+	margin-bottom: 0px !important;
+	padding-bottom: 0px !important;
+}
+
 #code {
     display: block;
     height: 100%;
@@ -23,10 +28,11 @@ iframe {
 	display: block;
 	margin: auto;
 	margin-top: 10px;
-	
+	padding: 5px;
+	text-align: center;
 	border:2px solid grey;
 	border-radius: 5px;
-	width: 15%;
+	width: 16%;
 	
 }
 #go {
@@ -47,9 +53,7 @@ iframe {
 
 
     
-/* Paste this css to your style sheet file or under head tag */
-/* This only works with JavaScript, 
-if it's not present, don't show loader */
+
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
 .se-pre-con {
@@ -60,4 +64,44 @@ if it's not present, don't show loader */
 	height: 100%;
 	z-index: 9999;
 	background: url(30.gif) center no-repeat #fff;
+}
+
+.page-header {
+	text-align: ali
+}
+#typing {
+  color: black; 
+  font-family: "Courier new";
+  /*font-size: 20px;*/
+  /*margin: 10px 0 0 10px;*/
+  white-space: nowrap;
+  overflow: hidden;
+  width: 30em;
+  animation: type 10s steps(60, end); 
+   margin-top: -70px; 
+   margin-bottom: 0px;
+}
+
+#typing:nth-child(2){
+  animation: type2 8s steps(26000, end);
+}
+
+
+
+#typing span{
+  animation: blink 1s infinite;
+}
+
+@keyframes type{ 
+  from { width: 0; } 
+} 
+
+@keyframes type2{
+  0%{width: 0;}
+  50%{width: 0;}
+  100%{ width: 100; } 
+} 
+
+@keyframes blink{
+  to{opacity: .0;}
 }
